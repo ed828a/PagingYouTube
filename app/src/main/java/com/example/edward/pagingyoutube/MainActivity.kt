@@ -65,12 +65,14 @@ class MainActivity : AppCompatActivity() {
                 query = query.substring(1)
             }
         }
-        if (!more) {
+        if (!more) { // first time
             lastSearched = query
             lastToken = ""
         }
 
-        val youtubeResponseCall = APIService.youtubeApi.searchVideo(query!!, searchType, Constants.YOUTUBE_API_KEY, "snippet,id", "10", lastToken!!)
+        val youtubeResponseCall = APIService.youtubeApi.searchVideo(query!!,
+                searchType, Constants.YOUTUBE_API_KEY, "snippet,id", "10", lastToken!!)
+
         youtubeResponseCall.enqueue(object : Callback<YoutubeResponse> {
            override fun onResponse(call: Call<YoutubeResponse>, response: Response<YoutubeResponse>) {
                 if (progressDialog.isShowing) {
